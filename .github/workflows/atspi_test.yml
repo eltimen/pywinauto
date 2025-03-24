@@ -1,7 +1,6 @@
 name: atspi CI
 on:
   push:
-    branches: [ "atspi", "master" ]
   pull_request:
     branches: [ "atspi", "master" ]
 jobs:
