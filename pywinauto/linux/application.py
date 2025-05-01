@@ -158,16 +158,21 @@ class Application(BaseApplication):
         This should only be used when it is OK to kill the process like you
         would do in task manager.
         """
+        print('kill')
         if self._proc_descriptor is not None:
             # Kill process created via Application with subprocess kill
+            print('subprocess kill')
             self._proc_descriptor.kill()
             # wait for child process to terminate
             self._proc_descriptor.communicate()
             self._proc_descriptor = None
-
+        
         if not self.is_process_running():
+            print('running')
             return True  # already closed
+        
         status = subprocess.check_output(["kill", "-9", str(self.process)], universal_newlines=True)
+        print(f'{status=}')
         if "Operation not permitted" in status:
             raise Exception("Cannot kill process: {}".format(status))
         else:
